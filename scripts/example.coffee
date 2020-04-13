@@ -54,9 +54,9 @@ module.exports = (robot) ->
     zipcode = msg.match[1]
     zipcode = zipcode.trim()
     baseUrl = 'http://zip.cgis.biz/csv/zip.php?zn=' + zipcode
-    msg.reply baseUrl
-    request "Request URL = " + baseUrl, (err, res) ->
-       if err
+    msg.reply "Request API URL = " + baseUrl
+    request baseUrl, (err, res) ->
+       if err | res.statusCode != 200
          msg.reply "api call error!"
        else
          rows = res.body.split("\n")
