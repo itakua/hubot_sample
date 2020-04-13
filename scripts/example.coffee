@@ -9,7 +9,6 @@
 #   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
 cheerio = require 'cheerio'
 request = require 'request'
-encoding = require 'encoding-japanese'
 
 module.exports = (robot) ->
 
