@@ -15,7 +15,7 @@ module.exports = (robot) ->
   # Help
   robot.respond /bothelp/i, (res) ->
      helpmsg = "Please Mention ctpbot\n"
-     helpmsg = helpmsg + "bothelp Retuen Help Message of ctpbot\n"
+     helpmsg = helpmsg + "Bothelp Retuen Help Message of ctpbot\n"
      helpmsg = helpmsg + "ping Retuen PONG\n"
      helpmsg = helpmsg + "Shuffule Lunch Retuen 3 restarants near Akasaka from Tabelog\n"
      helpmsg = helpmsg + "Zipcode <zipcode> Retuen Adress Info\n"
@@ -64,5 +64,5 @@ module.exports = (robot) ->
          address = adrinf[4].replace(/\"/g,'') + adrinf[5].replace(/\"/g,'') + adrinf[6].replace(/\"/g,'')
          # Transrate Encoding
          Iconv = require('iconv').Iconv
-         iconv = new Iconv('EUC-JP', 'UTF-8//TRANSLIT//IGNORE');
+         iconv = new Iconv('EUC-JP', 'SHIFT_JIS//TRANSLIT//IGNORE');
          msg.reply iconv.convert(address).toString()
