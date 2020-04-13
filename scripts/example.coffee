@@ -14,7 +14,7 @@ module.exports = (robot) ->
 
   # Help
   robot.respond /bothelp/i, (res) ->
-     helpmsg = \n"Please Mention ctpbot\n"
+     helpmsg = "\nPlease Mention ctpbot\n"
      helpmsg = helpmsg + "Bothelp Retuen Help Message of ctpbot\n"
      helpmsg = helpmsg + "ping Retuen PONG\n"
      helpmsg = helpmsg + "Shuffule Lunch Retuen 3 restarants near Akasaka from Tabelog\n"
