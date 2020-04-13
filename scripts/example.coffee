@@ -9,6 +9,7 @@
 #   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
 cheerio = require 'cheerio'
 request = require 'request'
+encoding = require 'encoding-japanese'
 
 module.exports = (robot) ->
 
@@ -53,17 +54,13 @@ module.exports = (robot) ->
   robot.respond /Zipcode\s([0-9]{7})/i, (msg) ->
     zipcode = msg.match[1]
     zipcode = zipcode.trim()
-    baseUrl = 'http://zip.cgis.biz/csv/zip.php?zn=' + zipcode
+    baseUrl = 'https://zip-cloud.appspot.com/api/search?zipcode=' + zipcode
     msg.reply "Request API URL = " + baseUrl
     request baseUrl, (err, res) ->
        if err | res.statusCode != 200
          msg.reply "api call error!"
        else
-         rows = res.body.split("\n")
-         adrinf = rows[1].split(",")
-         address = adrinf[4].replace(/\"/g,'') + adrinf[5].replace(/\"/g,'') + adrinf[6].replace(/\"/g,'')
-         # Transrate Encoding
-         #Iconv = require('iconv').Iconv
-         #iconv = new Iconv('EUC-JP', 'SHIFT_JIS//TRANSLIT//IGNORE');
-         #msg.reply iconv.convert(address).toString()
+         b = JSON.parse(res.body)
+         a0 = b['results'][0]
+         address = a0['address1'] + a0['address2'] + a0['address3']
          msg.reply address
