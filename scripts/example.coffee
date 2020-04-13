@@ -14,7 +14,7 @@ module.exports = (robot) ->
 
   # Help
   robot.respond /bothelp/i, (res) ->
-     helpmsg = "Please Mention ctpbot\n"
+     helpmsg = \n"Please Mention ctpbot\n"
      helpmsg = helpmsg + "Bothelp Retuen Help Message of ctpbot\n"
      helpmsg = helpmsg + "ping Retuen PONG\n"
      helpmsg = helpmsg + "Shuffule Lunch Retuen 3 restarants near Akasaka from Tabelog\n"
@@ -55,7 +55,7 @@ module.exports = (robot) ->
     zipcode = zipcode.trim()
     baseUrl = 'http://zip.cgis.biz/csv/zip.php?zn=' + zipcode
     msg.reply baseUrl
-    request baseUrl, (err, res) ->
+    request "Request URL = " + baseUrl, (err, res) ->
        if err | res.statusCode != 200
          msg.reply "api call error!"
        else
@@ -63,6 +63,7 @@ module.exports = (robot) ->
          adrinf = rows[1].split(",")
          address = adrinf[4].replace(/\"/g,'') + adrinf[5].replace(/\"/g,'') + adrinf[6].replace(/\"/g,'')
          # Transrate Encoding
-         Iconv = require('iconv').Iconv
-         iconv = new Iconv('EUC-JP', 'SHIFT_JIS//TRANSLIT//IGNORE');
-         msg.reply iconv.convert(address).toString()
+         #Iconv = require('iconv').Iconv
+         #iconv = new Iconv('EUC-JP', 'SHIFT_JIS//TRANSLIT//IGNORE');
+         #msg.reply iconv.convert(address).toString()
+         msg.reply address
