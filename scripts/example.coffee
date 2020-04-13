@@ -12,12 +12,22 @@ request = require 'request'
 
 module.exports = (robot) ->
 
+  # Help
+  robot.respond /bothelp/i, (res) ->
+     helpmsg = "Please Mention ctpbot\n"
+     helpmsg = helpmsg + "bothelp Retuen Help Message of ctpbot\n"
+     helpmsg = helpmsg + "ping Retuen PONG\n"
+     helpmsg = helpmsg + "Shuffule Lunch Retuen 3 restarants near Akasaka from Tabelog\n"
+     helpmsg = helpmsg + "Zipcode <zipcode> Retuen Adress Info\n"
+     res.reply helpmsg
+
+
   # Sample Response
-  robot.hear /ping/i, (res) ->
+  robot.respond /ping/i, (res) ->
      res.reply "PONG"
 
   # ShuffulLunch
-  robot.hear /shuffuleLunch/i, (res) ->
+  robot.respond /Shuffule Lunch/i, (res) ->
       # Search Tabelog  (Akasaka Lunch 1000jpy)
       baseUrl = 'https://tabelog.com/tokyo/A1308/rstLst/lunch/?LstCosT=1&RdoCosTp=1'
       
@@ -38,3 +48,21 @@ module.exports = (robot) ->
           restaurants.splice(idx,1)
           idx = Math.floor(Math.random() * restaurants.length)
           res.reply restaurants[idx]
+  
+  # Zipcode
+  robot.respond /Zipcode\s([0-9]{7})/i, (msg) ->
+    zipcode = msg.match[1]
+    zipcode = zipcode.trim()
+    baseUrl = 'http://zip.cgis.biz/csv/zip.php?zn=' + zipcode
+    msg.reply baseUrl
+    request baseUrl, (err, res) ->
+       if err | res.statusCode != 200
+         msg.reply "api call error!"
+       else
+         rows = res.body.split("\n")
+         adrinf = rows[1].split(",")
+         address = adrinf[4].replace(/\"/g,'') + adrinf[5].replace(/\"/g,'') + adrinf[6].replace(/\"/g,'')
+         # Transrate Encoding
+         Iconv = require('iconv').Iconv
+         iconv = new Iconv('EUC-JP', 'UTF-8//TRANSLIT//IGNORE');
+         msg.reply iconv.convert(address).toString()

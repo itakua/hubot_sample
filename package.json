@@ -19,6 +19,7 @@
     "hubot-scripts": "^2.17.2",
     "hubot-shipit": "^0.2.1",
     "hubot-slack": "^4.7.1",
+    "iconv": "^2.3.5",
     "request": "^2.88.2"
   },
   "engines": {
