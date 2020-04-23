@@ -13,11 +13,11 @@ request = require 'request'
 module.exports = (robot) ->
 
   # Help
-  robot.respond /bothelp/i, (res) ->
+  robot.respond /Bothelp/i, (res) ->
      helpmsg = "\nPlease Mention ctpbot\n"
      helpmsg = helpmsg + "Bothelp Retuen Help Message of ctpbot\n"
      helpmsg = helpmsg + "ping Retuen PONG\n"
-     helpmsg = helpmsg + "Shuffule Lunch Retuen 3 restarants near Akasaka from Tabelog\n"
+     helpmsg = helpmsg + "ShuffuleLunch Retuen 3 restarants near Akasaka from Tabelog\n"
      helpmsg = helpmsg + "Zipcode <zipcode> Retuen Adress Info\n"
      res.reply helpmsg
 
@@ -27,7 +27,7 @@ module.exports = (robot) ->
      res.reply "PONG"
 
   # ShuffulLunch
-  robot.respond /Shuffule Lunch/i, (res) ->
+  robot.respond /ShuffuleLunch.*/i, (res) ->
       # Search Tabelog  (Akasaka Lunch 1000jpy)
       baseUrl = 'https://tabelog.com/tokyo/A1308/rstLst/lunch/?LstCosT=1&RdoCosTp=1'
       
